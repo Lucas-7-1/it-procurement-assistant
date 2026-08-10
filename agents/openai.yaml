@@ -1,4 +1,4 @@
 interface:
-  display_name: "IT 间接采购工作台"
-  short_description: "面向 AI、云与 SaaS 的全流程采购决策与履约助手"
-  default_prompt: "使用 $it-procurement-workbench 根据我提供的材料判断当前采购阶段，并输出可追溯的决策建议和下一步。"
+  display_name: "IT 采购助理"
+  short_description: "说清需求或上传材料，直接获得可执行的 IT 采购结果"
+  default_prompt: "使用 $it-procurement-assistant，根据我描述的需求或上传的材料直接完成采购分析，并给出可执行结果。"
