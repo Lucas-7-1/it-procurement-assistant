@@ -1,0 +1,1 @@
+risk_id,case_id,stage,category,vendor_id,source_ref,risk_domain,current_fact,trigger_and_impact,likelihood,impact,rating,status,mitigation_or_clause_request,owner,due_date,approval_required,evidence_status,residual_risk,notes

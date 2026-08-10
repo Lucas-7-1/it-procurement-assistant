@@ -1,0 +1,1 @@
+case_id,vendor_id,vendor_legal_entity,vendor_role,product_or_service,upstream_dependency,common_failure_domain,criterion_id,criterion_name,mandatory_gate,gate_result,weight,score,score_anchor,evidence_id,evidence_source,evidence_date,evidence_status,confidence,reviewer,assumption_or_gap,notes

@@ -1,0 +1,52 @@
+policy_version: "待填写"
+effective_date: "待填写"
+owner: "待填写"
+base_currency: "待填写"
+
+evidence:
+  source_priority: []
+  current_information_max_age: "待填写"
+  dual_source_required_for: []
+
+selection:
+  mandatory_gates: []
+  scoring_scale: "待填写"
+  weight_approval_role: "待填写"
+  conflict_of_interest_rule: "待填写"
+
+sourcing:
+  prohibited_or_restricted_rules: []
+  due_diligence_dimensions: []
+  related_party_check_rule: "待填写"
+
+commercial:
+  tco_horizon_rule: "待填写"
+  fx_source: "待填写"
+  negotiation_authority: "待填写"
+  single_source_approval: "待填写"
+
+contract:
+  legal_review_required_for: []
+  non_negotiable_positions: []
+  risk_acceptance_authority: "待填写"
+
+delivery_and_acceptance:
+  rebaseline_thresholds: []
+  defect_tolerance_by_criticality: []
+  sampling_method_by_data_risk: []
+  retention_rule: "待填写"
+
+payment:
+  invoice_and_tax_rule_source: "待填写"
+  payment_approval_matrix: "待填写"
+  disputed_amount_rule: "待填写"
+
+supplier_performance:
+  kpi_dimensions: []
+  grade_thresholds: []
+  cure_period_by_severity: []
+
+renewal_and_risk:
+  internal_decision_lead_time_rule: "待填写"
+  concentration_and_substitutability_rule: "待填写"
+  backup_and_exit_test_frequency: "待填写"
