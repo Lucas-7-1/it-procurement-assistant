@@ -74,4 +74,11 @@ Agent 不会编造价格、资质、案例、合同或供应商事实。涉及�
 - 显式调用：`$it-procurement-assistant`
 - 打包文件：[IT采购助理.zip](dist/IT采购助理.zip)
 
+### 专项寻源 Skill
+
+针对“上传需求文档后自动做需求边界提取、华为五看实时调研、竞品与行业玩家分析，并生成供应商地图 HTML”的场景，可单独使用 [it-sourcing-map](skills/it-sourcing-map/)。
+
+- 显式调用：`$it-sourcing-map`
+- 打包文件：[it-sourcing-map.zip](dist/it-sourcing-map.zip)
+
 安装或加载后，无需记忆调用命令，直接描述采购需求即可。
