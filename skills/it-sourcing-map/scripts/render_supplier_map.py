@@ -24,6 +24,12 @@ FIVE_LOOKS = (
     ("competition", "看竞争"),
     ("self", "看自己"),
 )
+THREE_DECISIONS = (
+    ("control_point", "定控制点"),
+    ("goal", "定目标"),
+    ("strategy", "定策略"),
+)
+REQUIRED_INDUSTRY_HIGHLIGHTS = ("国家政策", "技术趋势")
 DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 FORBIDDEN_PENDING_FIELDS = {
     "x",
@@ -229,6 +235,28 @@ def normalize_five_looks(value: Any, known_ids: set[str]) -> dict[str, dict[str,
         normalized[key] = {
             "summary": str(item.get("summary", "待验证")).strip() or "待验证",
             "source_ids": source_ids(item.get("source_ids", []), f"five_looks.{key}.source_ids", known_ids),
+            "highlights": normalize_evidence_items(
+                item.get("highlights", []), f"five_looks.{key}.highlights", known_ids
+            ),
+        }
+    return normalized
+
+
+def normalize_three_decisions(value: Any, known_ids: set[str]) -> dict[str, dict[str, Any]]:
+    if value is None:
+        fail("three_decisions", "必须提供三定（control_point/goal/strategy）")
+    raw = as_object(value, "three_decisions")
+    normalized: dict[str, dict[str, Any]] = {}
+    for key, _ in THREE_DECISIONS:
+        entry = as_object(raw.get(key, {}), f"three_decisions.{key}")
+        summary = str(entry.get("summary", "")).strip()
+        if not summary:
+            fail(f"three_decisions.{key}.summary", "必须是非空文本")
+        normalized[key] = {
+            "summary": summary,
+            "source_ids": source_ids(
+                entry.get("source_ids", []), f"three_decisions.{key}.source_ids", known_ids
+            ),
         }
     return normalized
 
@@ -252,6 +280,7 @@ def normalize_boundary(value: Any) -> dict[str, Any]:
 
 def validate_and_normalize(raw: Any) -> dict[str, Any]:
     data = as_object(raw, "root")
+    demand_oneliner = nonempty_text(data.get("demand_oneliner"), "demand_oneliner")
     sources, known_ids = validate_sources(data.get("sources", []))
     vendors = [validate_vendor(item, index, known_ids) for index, item in enumerate(as_list(data.get("vendors", []), "vendors"))]
     if vendors and not sources:
@@ -266,11 +295,20 @@ def validate_and_normalize(raw: Any) -> dict[str, Any]:
         known_ids,
     )
 
+    five_looks = normalize_five_looks(data.get("five_looks"), known_ids)
+    industry_highlight_names = {item["name"] for item in five_looks["industry"]["highlights"]}
+    for required in REQUIRED_INDUSTRY_HIGHLIGHTS:
+        if required not in industry_highlight_names:
+            fail("five_looks.industry.highlights", f"看行业必须包含子项：{required}")
+    three_decisions = normalize_three_decisions(data.get("three_decisions"), known_ids)
+
     axes = as_object(data.get("map_axes", {}), "map_axes")
     return {
         "title": str(data.get("title", "供应商地图")).strip() or "供应商地图",
         "category": str(data.get("category", "待确认品类")).strip() or "待确认品类",
         "research_date": validate_date(data.get("research_date"), "research_date"),
+        "demand_oneliner": demand_oneliner,
+        "assumptions": normalize_text_list(data.get("assumptions", []), "assumptions"),
         "demand_boundary": normalize_boundary(data.get("demand_boundary")),
         "map_axes": {
             "x_label": str(axes.get("x_label", "横轴：需求适配度（分析定位）")).strip()
@@ -278,7 +316,8 @@ def validate_and_normalize(raw: Any) -> dict[str, Any]:
             "y_label": str(axes.get("y_label", "纵轴：交付 / 部署可控性（分析定位）")).strip()
             or "纵轴：交付 / 部署可控性（分析定位）",
         },
-        "five_looks": normalize_five_looks(data.get("five_looks"), known_ids),
+        "five_looks": five_looks,
+        "three_decisions": three_decisions,
         "technical_paths": normalize_evidence_items(data.get("technical_paths"), "technical_paths", known_ids),
         "peer_paths": normalize_evidence_items(data.get("peer_paths"), "peer_paths", known_ids),
         "compliance_risks": normalize_evidence_items(data.get("compliance_risks"), "compliance_risks", known_ids),
@@ -314,10 +353,21 @@ def source_markup(source: dict[str, Any]) -> str:
     return f"{esc(label)}" + (f"<br><span class=\"muted\">{esc(locator or url)}</span>" if locator or url else "")
 
 
-def render_card(title: str, summary: str, ids: list[str]) -> str:
+def render_card(title: str, summary: str, ids: list[str], highlights: list[dict[str, Any]] | None = None) -> str:
+    highlights_markup = ""
+    if highlights:
+        rows = "".join(
+            "<li>"
+            f"<strong>{esc(item['name'])}</strong>：{esc(item['summary'])}"
+            f'<div class="evidence">{source_badges(item["source_ids"])}</div>'
+            "</li>"
+            for item in highlights
+        )
+        highlights_markup = f'<ul class="highlights">{rows}</ul>'
     return (
         '<article class="card">'
         f"<h3>{esc(title)}</h3><p>{esc(summary)}</p>"
+        f"{highlights_markup}"
         f'<div class="evidence">{source_badges(ids)}</div></article>'
     )
 
@@ -341,9 +391,13 @@ def render_evidence_section(title: str, items: list[dict[str, Any]], risk: bool 
 
 def render_html(data: dict[str, Any]) -> str:
     boundary = data["demand_boundary"]
-    look_cards = "".join(
-        render_card(label, data["five_looks"][key]["summary"], data["five_looks"][key]["source_ids"])
-        for key, label in FIVE_LOOKS
+    look_cards = ""
+    for key, label in FIVE_LOOKS:
+        look = data["five_looks"][key]
+        look_cards += render_card(label, look["summary"], look["source_ids"], look.get("highlights"))
+    decision_cards = "".join(
+        render_card(label, data["three_decisions"][key]["summary"], data["three_decisions"][key]["source_ids"])
+        for key, label in THREE_DECISIONS
     )
     source_rows = "".join(f"<li>{source_markup(source)}</li>" for source in data["sources"])
     pending_rows = "".join(
@@ -373,6 +427,8 @@ main {{ max-width:1240px; margin:0 auto; padding:28px 20px 48px; }}
 header {{ border-left:5px solid var(--blue); padding:4px 0 5px 16px; margin-bottom:20px; }}
 h1 {{ margin:0; font-size:28px; line-height:1.25; }} h2 {{ margin:0 0 12px; font-size:19px; }} h3 {{ margin:0 0 8px; font-size:16px; }} p {{ margin:0 0 8px; }}
 .meta, .muted {{ color:var(--muted); }} .meta {{ margin-top:7px; }}
+.oneliner {{ margin-top:12px; padding:10px 14px; background:#eef3ff; border-left:4px solid var(--blue); border-radius:0 8px 8px 0; font-size:15px; }}
+.highlights {{ margin:8px 0 0; padding-left:18px; font-size:13px; }} .highlights li {{ margin:6px 0; }} .highlights .evidence {{ margin-top:2px; }}
 .panel {{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:18px; margin:16px 0; box-shadow:0 2px 7px rgba(29,43,74,.04); }}
 .boundary {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; }}
 .boundary article, .card {{ border:1px solid var(--line); border-radius:10px; padding:13px; background:#fff; }}
@@ -393,16 +449,18 @@ a {{ color:#1d4ed8; }} footer {{ color:var(--muted); font-size:12px; margin-top:
 </head>
 <body>
 <main>
-  <header><h1>{esc(data['title'])}</h1><p class="meta">品类：{esc(data['category'])}　|　研究日期：{esc(data['research_date'])}　|　仅供采购调研与核验使用</p></header>
+  <header><h1>{esc(data['title'])}</h1><p class="meta">品类：{esc(data['category'])}　|　研究日期：{esc(data['research_date'])}　|　仅供采购调研与核验使用</p><p class="oneliner">需求原话：{esc(data['demand_oneliner'])}</p></header>
   <section class="panel"><h2>需求边界</h2><div class="boundary">
     <article><h3>业务目标</h3><p>{esc(boundary['business_goal'])}</p></article>
+    <article><h3>假设与待确认（用户未说明，由调研方推断）</h3>{list_markup(data['assumptions'])}</article>
     <article><h3>范围内</h3>{list_markup(boundary['in_scope'])}</article>
     <article><h3>范围外</h3>{list_markup(boundary['out_of_scope'])}</article>
     <article><h3>时间 / 预算</h3><p>时间：{esc(boundary['timeline'])}</p><p>预算：{esc(boundary['budget'])}</p></article>
     <article><h3>系统、数据与合规约束</h3>{list_markup(boundary['system_data_compliance_constraints'])}</article>
     <article><h3>成功标准</h3>{list_markup(boundary['success_criteria'])}</article>
   </div></section>
-  <section class="panel"><h2>华为五看摘要</h2><div class="five-grid">{look_cards}</div></section>
+  <section class="panel"><h2>五看摘要</h2><div class="five-grid">{look_cards}</div></section>
+  <section class="panel"><h2>三定（采购立场）</h2><div class="five-grid">{decision_cards}</div></section>
   <section class="panel"><h2>供应商分布图</h2>
     <div class="controls"><label>状态<select id="status-filter"><option value="all">全部</option><option value="shortlist">入围</option><option value="watch">观察</option><option value="exclude">排除</option></select></label><label>细分<select id="segment-filter"><option value="all">全部细分</option></select></label><button id="reset-filter" type="button">重置筛选</button></div>
     <div class="map-wrap"><svg id="supplier-map" viewBox="0 0 960 550" role="img" aria-label="供应商分析定位图"><g id="map-base"></g><g id="map-points"></g></svg></div>
