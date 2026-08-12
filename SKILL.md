@@ -36,6 +36,7 @@ description: 直接处理甲方 IT 间接采购工作的个人助理，重点支
 
 - 需求是否合理、是否采购、自研或外购：读 [01-demand-strategy.md](references/workflows/01-demand-strategy.md)。
 - 市场格局、供应商动态、技术路线、价格单位：读 [02-market-intelligence.md](references/workflows/02-market-intelligence.md)。
+- 只丢一句话就要市场扫描、供应商地图或“五看三定”并期望 HTML 交付：按 it-sourcing-map 技能执行（见 skills/it-sourcing-map/SKILL.md），不发问卷、不要求用户补文档。
 - 评估标准、权重、门槛、评标设计：读 [03-selection-strategy.md](references/workflows/03-selection-strategy.md)。
 - 找供应商、库内匹配、准入、长短名单：读 [04-sourcing-due-diligence.md](references/workflows/04-sourcing-due-diligence.md)。
 - Demo、POC、技术评估、选型推荐：读 [05-poc-evaluation.md](references/workflows/05-poc-evaluation.md)。

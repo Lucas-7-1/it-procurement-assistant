@@ -1,18 +1,19 @@
-# 五看与供应商地图数据规范
+# 五看三定与供应商地图数据规范
 
 仅在完成实时公开研究后构造数据。事实性结论必须能回链到 `sources`；不能取得公开证据时，把候选放入 `pending_verification_vendors`，不放入 `vendors`，也不填坐标。
 
-## 研究与五看
+## 研究与五看三定
 
-先按需求边界限定品类、地域、时间、部署方式、预算、现有系统、数据与合规约束。再分别收集：
+先根据用户的一句话（或需求文档）限定品类、地域、时间、部署方式、预算、现有系统、数据与合规约束；未说明的边界条件记入 `assumptions`。再分别收集：
 
-- **看行业**：政策、标准、技术范式与行业驱动。
-- **看市场**：细分市场、部署 / 采购模式与可观察的供给信号。
-- **看客户**：同类客户的公开场景、采用路径与可复制条件。
-- **看竞争**：产品厂商、方案商、细分位置、技术路径与替代关系。
-- **看自己**：需求方现有系统、团队能力、数据 / 合规约束、迁移和运维承受度。
+- **看行业**：行业结构、竞争格局、驱动因素与供应风险。`highlights` 必须包含 **国家政策**（监管、标准、补贴、信创/国产化、数据与安全法规）和 **技术趋势**（路线演进、代际变化、生态与采购时点影响）两个子项。
+- **看市场**：细分市场、采购/部署模式与可观察的供给/价格信号。
+- **看客户**：同行/友商类客户的公开场景、采用路径与可复制条件。
+- **看竞争**：竞品产品厂商、行业玩家全景、细分位置、技术路径与替代/合作关系。
+- **看自己**：需求方现有系统、团队能力、数据/合规约束、迁移和运维承受度。
+- **三定**：在五看证据上定控制点、定目标、定策略（见 JSON 结构）。
 
-“看自己”可引用需求文档；其余外部事实用公开来源。厂商官网、公开财报、政府公示、标准组织、公开招投标、公开客户案例、分析师 / 媒体报告都可用，但要把厂商自述标成 `vendor_claim`，不能当作独立事实。
+“看自己”可引用需求原话与文档；其余外部事实用公开来源。厂商官网、公开财报、政府公示、标准组织、公开招投标、公开客户案例、分析师/媒体报告都可用，但要把厂商自述标成 `vendor_claim`，不能当作独立事实。
 
 ## JSON 结构
 
@@ -20,9 +21,14 @@
 
 ```json
 {
-  "title": "供应商地图｜<品类>",
+  "title": "寻源地图｜<品类>",
   "category": "<品类>",
   "research_date": "YYYY-MM-DD",
+  "demand_oneliner": "<用户原话（一句话需求）>",
+  "assumptions": [
+    "<假设：……（依据/影响）>",
+    "<待确认：……>"
+  ],
   "demand_boundary": {
     "business_goal": "<要解决的业务问题>",
     "in_scope": ["<范围内>"],
@@ -37,11 +43,23 @@
     "y_label": "纵轴：<分析维度>"
   },
   "five_looks": {
-    "industry": {"summary": "<看行业结论或待验证>", "source_ids": ["S-001"]},
+    "industry": {
+      "summary": "<看行业结论或待验证>",
+      "highlights": [
+        {"name": "国家政策", "summary": "<监管/标准/补贴/信创/数据法规影响>", "source_ids": ["S-001"]},
+        {"name": "技术趋势", "summary": "<路线演进与采购时点影响>", "source_ids": ["S-001"]}
+      ],
+      "source_ids": ["S-001"]
+    },
     "market": {"summary": "<看市场结论或待验证>", "source_ids": ["S-001"]},
-    "customer": {"summary": "<同类客户路径或待验证>", "source_ids": ["S-001"]},
+    "customer": {"summary": "<同行/友商采用路径或待验证>", "source_ids": ["S-001"]},
     "competition": {"summary": "<看竞争结论或待验证>", "source_ids": ["S-001"]},
     "self": {"summary": "<看自己匹配或待确认>", "source_ids": []}
+  },
+  "three_decisions": {
+    "control_point": {"summary": "<定控制点：最稀缺、必须抓住的抓手及原因>", "source_ids": ["S-001"]},
+    "goal": {"summary": "<定目标：本轮寻源可衡量的目标与进入下一阶段的条件>", "source_ids": []},
+    "strategy": {"summary": "<定策略：寻源/竞争策略与 3–5 个关键动作>", "source_ids": []}
   },
   "technical_paths": [
     {"name": "<技术路径>", "summary": "<适用边界与取舍>", "source_ids": ["S-001"]}
@@ -91,6 +109,9 @@
 
 ## 强制证据规则
 
+- 顶层必须有非空 `demand_oneliner`（用户原话）；`assumptions` 承载所有推断出的边界条件与待确认项。
+- 顶层必须有 `three_decisions`，含 `control_point`、`goal`、`strategy` 三项，每项有非空 `summary` 和 `source_ids` 数组（无外部证据时可为空数组，但判断须能回溯到五看内容）。
+- `five_looks` 的每个键都是 `{summary, source_ids, highlights?}`；`highlights` 条目含非空 `name`、`summary` 和 `source_ids`。**看行业（industry）必须含名为“国家政策”和“技术趋势”的两个 highlights**。
 - 每个 `sources` 条目都必须有唯一 `id`、非空 `subject`、非空 `title`、`date`、合法 `claim_type`，以及非空 `url` 或 `source_locator`。
 - `date` 只允许真实的 `YYYY-MM-DD` 或 `日期未公开`；`claim_type` 只允许 `fact`、`vendor_claim`、`inference`、`reference`。
 - 每个 `vendors` 条目必须有至少一个有效 `source_id`（用 `source_ids` 数组承载）、非空 `coordinate_rationale`、至少一个有效 `coordinate_source_id`（用 `coordinate_source_ids` 数组承载）。所有 ID 都必须存在于 `sources`。
@@ -103,7 +124,7 @@
 ## 最小运行方式
 
 ```bash
-python scripts/render_supplier_map.py supplier-map-data.json --output "供应商地图-<品类>-<YYYYMMDD>.html"
+python scripts/render_supplier_map.py supplier-map-data.json --output "寻源地图-<品类>-<YYYYMMDD>.html"
 ```
 
-脚本会在写出 HTML 前校验来源、日期、引用和坐标规则。修正校验错误后再运行；不要为通过校验而编造来源或坐标依据。
+脚本会在写出 HTML 前校验来源、日期、引用、坐标、五看子项与三定规则。修正校验错误后再运行；不要为通过校验而编造来源或坐标依据。
