@@ -1,7 +1,4 @@
 interface:
-  display_name: "IT采购寻源地图"
-  short_description: "上传需求文档，自动完成需求理解、五看寻源和供应商地图"
-  default_prompt: "使用 $it-sourcing-map 读取我上传的需求文档，自动理解需求边界，按华为五看实时寻源并生成供应商地图HTML。"
-
-policy:
-  allow_implicit_invocation: true
+  display_name: "IT市场调研与寻源信息整理"
+  short_description: "大陆企业为主，整理IT市场、厂商、价格与风险事实"
+  default_prompt: "使用 $it-sourcing-map 调研这个 IT 品类，以大陆企业为主、海外企业为补充，中立整理市场结构、玩家、价格、风险和来源。"
