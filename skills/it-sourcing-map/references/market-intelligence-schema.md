@@ -58,6 +58,17 @@
       "region_basis": "<产品能力主体或主要履约主体的地域判断依据>",
       "region_source_ids": ["S-001"],
       "business_entry": "https://example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-000-0000",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": ["S-001"]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": ["S-001"],
       "source_ids": ["S-001"]
     }
   ],
@@ -125,6 +136,12 @@
 - 完整市场扫描中，`vendors` 总数不得少于 25，且 `mainland_china` 不得少于 15；小样本仅用于用户明确限定的节选、演示或结构回归，并必须显著标注非完整扫描；
 - 同一市场层和供应商卡片按 `mainland_china → overseas → unverified` 排列；Long List 在全表范围先按该地域顺序连续分组，再在每个地域组内按市场层排列。该顺序只执行用户地域约束，不表示能力、价格或采购优先级；
 - 若无法满足严格多数，填写 `scope.region_coverage_exception`，说明哪些供给层缺少可核验大陆企业及依据；HTML 必须显著展示，不能静默放宽。
+
+### 公开企业联系方式
+
+- 每家必须提供 `contacts`、`contact_note` 和 `contact_source_ids`。大陆企业至少列一条 `phone`，海外企业至少列一条 `email`；官网未公开对应联系方式时，`contacts` 可为空，但 `contact_note` 必须写清“本次官方公开扫描未见电话/邮箱”，并用 `contact_source_ids` 指向已核验的一手页面。
+- `contacts[].type` 只允许 `phone`、`email`；每条必须填写 `value`、用途 `label`、适用地区/渠道 `scope` 和来源。大陆只收企业总机、客服、销售、售后、支持电话；海外只收销售、支持、安全、隐私、法务等角色邮箱。
+- 不收个人手机号、员工个人邮箱、第三方黄页号码或推测邮箱。同一厂商的同值联系方式去重，但可在用途标签中合并多个用途。
 
 ### 证据状态 `evidence_status`
 

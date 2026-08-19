@@ -11,6 +11,7 @@ import tempfile
 from pathlib import Path
 
 from qa_sourcing_report import run_checks
+from render_contact_list import render_contact_list
 from render_sourcing_report import ValidationError, render_html, validate_and_normalize
 
 
@@ -131,6 +132,46 @@ def main() -> int:
     assert "大陆企业" in rendered
     assert "官方产品页主体信息显示为中国大陆企业" in rendered
     assert rendered.find("示例厂商 &lt;A&gt;") < rendered.find('id="market-group-1"')
+
+    contact_payload = {
+        "vendors": [
+            {
+                "vendor": "海外联系厂商",
+                "enterprise_region": "overseas",
+                "contacts": [
+                    {
+                        "type": "email",
+                        "value": "support@example.com",
+                        "label": "技术支持",
+                        "scope": "全球",
+                        "source_ids": ["S2"],
+                    }
+                ],
+                "contact_note": "",
+                "contact_source_ids": ["S2"],
+            },
+            {
+                "vendor": "大陆联系厂商",
+                "enterprise_region": "mainland_china",
+                "contacts": [
+                    {
+                        "type": "phone",
+                        "value": "400-000-1234",
+                        "label": "全国服务热线",
+                        "scope": "中国大陆",
+                        "source_ids": ["S2"],
+                    }
+                ],
+                "contact_note": "",
+                "contact_source_ids": ["S2"],
+            },
+        ],
+        "sources": [
+            {"id": "S2", "url": "https://example.com/contact"}
+        ],
+    }
+    sorted_contact_text = render_contact_list(contact_payload)
+    assert sorted_contact_text.find("大陆联系厂商") < sorted_contact_text.find("海外联系厂商")
 
     invalid = copy.deepcopy(payload)
     invalid["decision"] = "进入 RFI"
