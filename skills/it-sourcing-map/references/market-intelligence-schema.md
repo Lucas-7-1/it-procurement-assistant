@@ -11,6 +11,7 @@
 - `market_structure` 先列粗粒度“供给类型”，再列“技术路线”；`vendors.category` 必须与某个供给类型的 `name` 完全一致，使市场图、分组卡片和 Long List 使用同一分类坐标。
 - v3 至少需要一个供给类型、一家厂商、一条商业信号和一条风险/信息缺口；没有公开价格时使用 `quote_required`，不要省略商业信息。
 - 默认大陆采购场景中，大陆企业必须占全部候选池严格多数；海外企业作为专项能力、替代路线或市场参照补充。若市场客观供给不足，必须填写 `scope.region_coverage_exception`，不得虚构大陆厂商。
+- 完整市场扫描默认 `vendors` 不少于 25 家，其中 `mainland_china` 不少于 15 家且占严格多数。不能以缺少公开证据的名称凑数；客观不足时在 `scope.region_coverage_exception` 同时披露扫描边界、实际数量和不足原因。只有标题与 `scope.scan_scope` 明确标为“节选 / 非完整市场扫描”时，才允许低于该门槛。
 
 ## JSON v3
 
@@ -121,6 +122,7 @@
 - `mainland_china` 与 `overseas` 必须填写 `region_basis` 和至少一个 `region_source_ids`；优先引用工商/监管公示、正式主体说明或可核验签约资料；
 - `unverified` 不得帮助满足大陆企业比例，且 `information_gaps` 必须明确能力主体、注册地、签约主体或履约主体中的待核验项；
 - 无地域覆盖例外时，`mainland_china` 必须超过全部候选池的一半，并多于 `overseas`；
+- 完整市场扫描中，`vendors` 总数不得少于 25，且 `mainland_china` 不得少于 15；小样本仅用于用户明确限定的节选、演示或结构回归，并必须显著标注非完整扫描；
 - 同一市场层和供应商卡片按 `mainland_china → overseas → unverified` 排列；Long List 在全表范围先按该地域顺序连续分组，再在每个地域组内按市场层排列。该顺序只执行用户地域约束，不表示能力、价格或采购优先级；
 - 若无法满足严格多数，填写 `scope.region_coverage_exception`，说明哪些供给层缺少可核验大陆企业及依据；HTML 必须显著展示，不能静默放宽。
 
