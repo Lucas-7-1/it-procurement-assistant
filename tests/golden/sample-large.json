@@ -1,0 +1,1568 @@
+{
+  "schema_version": "3.0",
+  "title": "市场调研信息整合（演示数据）｜企业级应用性能监控（APM）平台",
+  "category": "企业级应用性能监控（APM）平台",
+  "research_date": "2026-08-19",
+  "scope": {
+    "buying_object": "用于回归对照的企业级应用性能监控（APM）平台演示对象",
+    "use_cases": [
+      "生产环境应用性能监控",
+      "故障定位与容量观测"
+    ],
+    "requirements": [
+      "指标/链路/日志一体化采集",
+      "支持私有化部署"
+    ],
+    "geography": "中国大陆",
+    "scan_scope": [
+      "公开产品页、文档与商务页（虚构演示数据，格式与真实扫描一致）",
+      "全量候选池 26 家：大陆企业 16 家、海外企业 8 家、主体待核验 2 家"
+    ],
+    "constraints": [],
+    "open_questions": [
+      "各家实际交付边界与企业报价口径待核验"
+    ],
+    "region_coverage_exception": ""
+  },
+  "market_structure": [
+    {
+      "kind": "供给类型",
+      "name": "一体化可观测平台",
+      "solves": "覆盖一体化可观测平台对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S27",
+        "S28"
+      ]
+    },
+    {
+      "kind": "供给类型",
+      "name": "APM 专项监控工具",
+      "solves": "覆盖APM 专项监控工具对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S27",
+        "S28"
+      ]
+    },
+    {
+      "kind": "供给类型",
+      "name": "云厂商托管监控服务",
+      "solves": "覆盖云厂商托管监控服务对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S27",
+        "S28"
+      ]
+    },
+    {
+      "kind": "供给类型",
+      "name": "开源发行版与商业支持",
+      "solves": "覆盖开源发行版与商业支持对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S27",
+        "S28"
+      ]
+    },
+    {
+      "kind": "供给类型",
+      "name": "信创适配监控方案",
+      "solves": "覆盖信创适配监控方案对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S27",
+        "S28"
+      ]
+    }
+  ],
+  "vendors": [
+    {
+      "category": "一体化可观测平台",
+      "vendor": "云瞰科技（虚构）",
+      "solution": "云瞰科技监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S1"
+      ],
+      "business_entry": "https://www.yunkan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S1"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S1"
+      ],
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "观澜数据（虚构）",
+      "solution": "观澜数据监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S2"
+      ],
+      "business_entry": "https://www.guanlan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S2"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S2"
+      ],
+      "source_ids": [
+        "S2"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "天络智汇（虚构）",
+      "solution": "天络智汇监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S3"
+      ],
+      "business_entry": "https://www.tianluo.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S3"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S3"
+      ],
+      "source_ids": [
+        "S3"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "峰岫软件（虚构）",
+      "solution": "峰岫软件监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S4"
+      ],
+      "business_entry": "https://www.fengxiu.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S4"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S4"
+      ],
+      "source_ids": [
+        "S4"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "栖衡信息（虚构）",
+      "solution": "栖衡信息监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S7"
+      ],
+      "business_entry": "https://www.qiheng.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S7"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S7"
+      ],
+      "source_ids": [
+        "S7"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "澄川科技（虚构）",
+      "solution": "澄川科技监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S8"
+      ],
+      "business_entry": "https://www.chengchuan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S8"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S8"
+      ],
+      "source_ids": [
+        "S8"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "陌上云图（虚构）",
+      "solution": "陌上云图监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S9"
+      ],
+      "business_entry": "https://www.moshang.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S9"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S9"
+      ],
+      "source_ids": [
+        "S9"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "湛卢数智（虚构）",
+      "solution": "湛卢数智监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S10"
+      ],
+      "business_entry": "https://www.zhanlu.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S10"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S10"
+      ],
+      "source_ids": [
+        "S10"
+      ]
+    },
+    {
+      "category": "云厂商托管监控服务",
+      "vendor": "白泽观测（虚构）",
+      "solution": "白泽观测监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S14"
+      ],
+      "business_entry": "https://www.baize.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S14"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S14"
+      ],
+      "source_ids": [
+        "S14"
+      ]
+    },
+    {
+      "category": "云厂商托管监控服务",
+      "vendor": "星阑互联（虚构）",
+      "solution": "星阑互联监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S15"
+      ],
+      "business_entry": "https://www.xinglan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S15"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S15"
+      ],
+      "source_ids": [
+        "S15"
+      ]
+    },
+    {
+      "category": "云厂商托管监控服务",
+      "vendor": "昆吾软件（虚构）",
+      "solution": "昆吾软件监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S16"
+      ],
+      "business_entry": "https://www.kunwu.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S16"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S16"
+      ],
+      "source_ids": [
+        "S16"
+      ]
+    },
+    {
+      "category": "开源发行版与商业支持",
+      "vendor": "沧浪云（虚构）",
+      "solution": "沧浪云监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S19"
+      ],
+      "business_entry": "https://www.canglang.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S19"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S19"
+      ],
+      "source_ids": [
+        "S19"
+      ]
+    },
+    {
+      "category": "开源发行版与商业支持",
+      "vendor": "翊坤数据（虚构）",
+      "solution": "翊坤数据监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S20"
+      ],
+      "business_entry": "https://www.yikun.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S20"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S20"
+      ],
+      "source_ids": [
+        "S20"
+      ]
+    },
+    {
+      "category": "开源发行版与商业支持",
+      "vendor": "岚台科技（虚构）",
+      "solution": "岚台科技监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S21"
+      ],
+      "business_entry": "https://www.lantai.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S21"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S21"
+      ],
+      "source_ids": [
+        "S21"
+      ]
+    },
+    {
+      "category": "信创适配监控方案",
+      "vendor": "鹿鸣信息（虚构）",
+      "solution": "鹿鸣信息监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S24"
+      ],
+      "business_entry": "https://www.luming.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S24"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S24"
+      ],
+      "source_ids": [
+        "S24"
+      ]
+    },
+    {
+      "category": "信创适配监控方案",
+      "vendor": "青梧智联（虚构）",
+      "solution": "青梧智联监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S25"
+      ],
+      "business_entry": "https://www.qingwu.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S25"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S25"
+      ],
+      "source_ids": [
+        "S25"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "Observalytics（虚构）",
+      "solution": "Observalytics监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S5"
+      ],
+      "business_entry": "https://www.observalytics.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@observalytics.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S5"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S5"
+      ],
+      "source_ids": [
+        "S5"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "TraceSpan（虚构）",
+      "solution": "TraceSpan监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S6"
+      ],
+      "business_entry": "https://www.tracespan.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@tracespan.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S6"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S6"
+      ],
+      "source_ids": [
+        "S6"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "MetricForge（虚构）",
+      "solution": "MetricForge监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S11"
+      ],
+      "business_entry": "https://www.metricforge.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@metricforge.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S11"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S11"
+      ],
+      "source_ids": [
+        "S11"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "PulseHive（虚构）",
+      "solution": "PulseHive监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S12"
+      ],
+      "business_entry": "https://www.pulsehive.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@pulsehive.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S12"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S12"
+      ],
+      "source_ids": [
+        "S12"
+      ]
+    },
+    {
+      "category": "云厂商托管监控服务",
+      "vendor": "Signalyte（虚构）",
+      "solution": "Signalyte监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S17"
+      ],
+      "business_entry": "https://www.signalyte.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@signalyte.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S17"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S17"
+      ],
+      "source_ids": [
+        "S17"
+      ]
+    },
+    {
+      "category": "云厂商托管监控服务",
+      "vendor": "Craterlake Systems（虚构）",
+      "solution": "Craterlake Systems监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S18"
+      ],
+      "business_entry": "https://www.craterlake.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@craterlake.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S18"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S18"
+      ],
+      "source_ids": [
+        "S18"
+      ]
+    },
+    {
+      "category": "开源发行版与商业支持",
+      "vendor": "Northquill（虚构）",
+      "solution": "Northquill监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S22"
+      ],
+      "business_entry": "https://www.northquill.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@northquill.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S22"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S22"
+      ],
+      "source_ids": [
+        "S22"
+      ]
+    },
+    {
+      "category": "信创适配监控方案",
+      "vendor": "Vantablue Labs（虚构）",
+      "solution": "Vantablue Labs监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S26"
+      ],
+      "business_entry": "https://www.vantablue.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@vantablue.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S26"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S26"
+      ],
+      "source_ids": [
+        "S26"
+      ]
+    },
+    {
+      "category": "APM 专项监控工具",
+      "vendor": "恒界智测（虚构）",
+      "solution": "恒界智测监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "能力主体注册地待核验",
+        "签约主体与履约主体待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "unverified",
+      "region_basis": "本次公开扫描未见能力主体注册地与履约主体的可核验资料，地域主体待核验。",
+      "region_source_ids": [
+        "S13"
+      ],
+      "business_entry": "https://www.hengjie.example.com/contact",
+      "contacts": [],
+      "contact_note": "本次官方公开扫描未见电话/邮箱。",
+      "contact_source_ids": [
+        "S13"
+      ],
+      "source_ids": [
+        "S13"
+      ]
+    },
+    {
+      "category": "开源发行版与商业支持",
+      "vendor": "弦歌软件（虚构）",
+      "solution": "弦歌软件监控平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "能力主体注册地待核验",
+        "签约主体与履约主体待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "partial",
+      "enterprise_region": "unverified",
+      "region_basis": "本次公开扫描未见能力主体注册地与履约主体的可核验资料，地域主体待核验。",
+      "region_source_ids": [
+        "S23"
+      ],
+      "business_entry": "https://www.xiange.example.com/contact",
+      "contacts": [],
+      "contact_note": "本次官方公开扫描未见电话/邮箱。",
+      "contact_source_ids": [
+        "S23"
+      ],
+      "source_ids": [
+        "S23"
+      ]
+    }
+  ],
+  "commercial_signals": [
+    {
+      "subject": "企业许可",
+      "billing_model": "按年订阅",
+      "price_type": "quote_required",
+      "price_signal": "需询价",
+      "cost_context": "部署实施与服务费用另行确认",
+      "limitations": "公开资料未披露企业报价，不能推断实际成交价",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "subject": "开源发行版商业支持",
+      "billing_model": "按节点订阅",
+      "price_type": "industry_estimate",
+      "price_signal": "行业估算：公开社区讨论显示按节点年订阅为常见口径（虚构演示），具体金额需询价核实。",
+      "cost_context": "自运维人力与商业支持费用并存",
+      "limitations": "估算依据为公开信号，不代表任一厂商报价",
+      "source_ids": [
+        "S27"
+      ]
+    }
+  ],
+  "risk_signals": [
+    {
+      "topic": "能力边界",
+      "observed_signal": "公开资料只覆盖部分功能描述（虚构演示）。",
+      "relevance": "可能影响需求覆盖口径。",
+      "information_needed": "逐项能力证明与样本结果。",
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "topic": "主体与履约边界",
+      "observed_signal": "部分厂商公开资料未披露注册地与签约主体（虚构演示）。",
+      "relevance": "影响大陆采购场景的合规与履约判断。",
+      "information_needed": "工商公示或正式主体说明。",
+      "source_ids": [
+        "S28"
+      ]
+    }
+  ],
+  "trends": [
+    {
+      "trend": "指标、链路与日志一体化采集成为公开产品描述中的常见形态（虚构演示）",
+      "horizon": "近 1–2 年",
+      "observed_change": "多家厂商公开资料同时描述三类信号的统一采集与存储。",
+      "possible_relevance": "可能影响该品类的产品边界与部署方式。",
+      "source_ids": [
+        "S27",
+        "S28"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "subject": "云瞰科技（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.yunkan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S2",
+      "subject": "观澜数据（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.guanlan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S3",
+      "subject": "天络智汇（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.tianluo.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S4",
+      "subject": "峰岫软件（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.fengxiu.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S5",
+      "subject": "Observalytics（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.observalytics.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S6",
+      "subject": "TraceSpan（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.tracespan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S7",
+      "subject": "栖衡信息（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.qiheng.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S8",
+      "subject": "澄川科技（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.chengchuan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S9",
+      "subject": "陌上云图（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.moshang.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S10",
+      "subject": "湛卢数智（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.zhanlu.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S11",
+      "subject": "MetricForge（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.metricforge.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S12",
+      "subject": "PulseHive（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.pulsehive.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S13",
+      "subject": "恒界智测（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.hengjie.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S14",
+      "subject": "白泽观测（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.baize.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S15",
+      "subject": "星阑互联（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.xinglan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S16",
+      "subject": "昆吾软件（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.kunwu.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S17",
+      "subject": "Signalyte（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.signalyte.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S18",
+      "subject": "Craterlake Systems（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.craterlake.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S19",
+      "subject": "沧浪云（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.canglang.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S20",
+      "subject": "翊坤数据（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.yikun.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S21",
+      "subject": "岚台科技（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.lantai.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S22",
+      "subject": "Northquill（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.northquill.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S23",
+      "subject": "弦歌软件（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.xiange.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S24",
+      "subject": "鹿鸣信息（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.luming.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S25",
+      "subject": "青梧智联（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.qingwu.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S26",
+      "subject": "Vantablue Labs（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.vantablue.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S27",
+      "subject": "行业媒体 A（虚构）",
+      "title": "商务与联系页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.demo-industry-news.example.com/market",
+      "source_locator": ""
+    },
+    {
+      "id": "S28",
+      "subject": "行业媒体 B（虚构）",
+      "title": "商务与联系页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.demo-market-review.example.com/market",
+      "source_locator": ""
+    }
+  ]
+}

@@ -80,6 +80,7 @@ CLAIM_TYPE_LABELS = {
 }
 DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 URL_PATTERN = re.compile(r"^https?://", re.IGNORECASE)
+DANGEROUS_URL_SCHEMES = {"javascript", "data", "vbscript"}
 
 
 class ValidationError(ValueError):
@@ -135,6 +136,12 @@ def join_clauses(values: list[str]) -> str:
     return "；".join(clauses) + ("。" if clauses else "")
 
 
+def cjk_bounded(rule: str, right: bool = True) -> re.Pattern[str]:
+    """Build a CJK word-boundary pattern so short legacy rules stop hitting substrings."""
+    suffix = r"(?![\u4e00-\u9fa5])" if right else ""
+    return re.compile(r"(?<![\u4e00-\u9fa5])" + re.escape(rule) + suffix)
+
+
 def neutralize_legacy_text(value: Any, fallback: str = "本次公开扫描未见") -> str:
     """Remove recommendation phrasing retained in pre-v3 research data."""
     text = optional_text(value, fallback)
@@ -175,23 +182,42 @@ def neutralize_legacy_text(value: Any, fallback: str = "本次公开扫描未见
         ("敏感项目优先核验", "敏感项目需核验"),
         ("采购范围需拆包或允许组合方案", "单一产品与组合方案的覆盖边界不同"),
         ("不接受只报云平台打包总价", "云平台打包总价无法说明各模块成本"),
-        ("需要求", "仍需"),
+        # ≤3 字短串逐条加中文词边界，避免子串误伤（如“值得注意”“需要求供应商”）；
+        # “适合”类只加左边界，保留“适合大型企业→常见于大型企业”的预期中立化。
+        (cjk_bounded("需要求"), "仍需"),
         ("匹配度高", "公开资料覆盖较多"),
-        ("高匹配", "公开资料覆盖较多"),
+        (cjk_bounded("高匹配"), "公开资料覆盖较多"),
         ("方向匹配", "公开资料涉及该方向"),
         ("部分匹配", "公开资料覆盖部分条目"),
         ("适配度高", "公开资料覆盖较多"),
         ("最佳组合：", "组合式："),
-        ("最适合", "常见于"),
-        ("适合", "常见于"),
-        ("值得", "可供观察"),
+        (cjk_bounded("最适合", right=False), "常见于"),
+        (cjk_bounded("适合", right=False), "常见于"),
+        (cjk_bounded("值得"), "可供观察"),
+        # 标点类规则自带右边界，按原样保留 str.replace。
         ("匹配；", "有公开资料覆盖；"),
         ("匹配，", "有公开资料覆盖，"),
         ("匹配。", "有公开资料覆盖。"),
     )
     for old, new in replacements:
-        text = text.replace(old, new)
+        if isinstance(old, re.Pattern):
+            text = old.sub(new, text)
+        else:
+            text = text.replace(old, new)
     return text
+
+
+def validate_business_entry(value: str, path: str) -> str:
+    """Reject business entries carrying dangerous URL schemes only."""
+    # 同时覆盖 scheme:// 与裸 scheme:（如 javascript:alert(1)）两种写法；
+    # mailto:/tel:/ftp:// 等其余协议一律放行，它们只会被 esc 后作为纯文本展示，不会成为链接。
+    for scheme in re.findall(r"([A-Za-z][A-Za-z0-9+.\-]*)\s*:", value):
+        if scheme.casefold() in DANGEROUS_URL_SCHEMES:
+            fail(
+                path,
+                f"business_entry 含危险链接协议“{scheme}:”；请改为 http(s) 链接或纯文本说明",
+            )
+    return value
 
 
 def text_list(value: Any, path: str, required: bool = False) -> list[str]:
@@ -473,8 +499,11 @@ def normalize_vendors(data: dict[str, Any], known_ids: set[str]) -> list[dict[st
                         item.get("region_basis"), f"{path}.region_basis"
                     ),
                     "region_source_ids": region_citations,
-                    "business_entry": optional_text(
-                        item.get("business_entry"), "本次公开扫描未见商务入口"
+                    "business_entry": validate_business_entry(
+                        optional_text(
+                            item.get("business_entry"), "本次公开扫描未见商务入口"
+                        ),
+                        f"{path}.business_entry",
                     ),
                     "source_ids": citations,
                 }
@@ -543,8 +572,11 @@ def normalize_vendors(data: dict[str, Any], known_ids: set[str]) -> list[dict[st
                 "enterprise_region": enterprise_region,
                 "region_basis": region_basis,
                 "region_source_ids": citations[:1],
-                "business_entry": nonempty_text(
-                    item.get("business_entry"), f"{path}.business_entry"
+                "business_entry": validate_business_entry(
+                    nonempty_text(
+                        item.get("business_entry"), f"{path}.business_entry"
+                    ),
+                    f"{path}.business_entry",
                 ),
                 "source_ids": citations,
             }
@@ -792,6 +824,8 @@ def source_badges(ids: list[str]) -> str:
 
 
 def smart_business_markup(value: str) -> str:
+    if re.search(r"(?:javascript|data|vbscript)\s*:", value, re.IGNORECASE):
+        return esc(value)
     match = re.search(r"https?://[^\s；;，,]+", value, re.IGNORECASE)
     if not match:
         return esc(value)
@@ -940,27 +974,23 @@ def render_html(data: dict[str, Any]) -> str:
         )
 
     max_group_vendors = max((len(group["vendors"]) for group in groups), default=1)
-    market_map_rows = "".join(
-        '<a class="market-layer" data-vendor-count="{count}" '
-        'style="--layer-color:{color};--layer-width:{width}%" href="#{identifier}">'
-        '<span class="layer-code">M{index}</span>'
-        '<span class="layer-copy"><strong>{name}</strong><small>{solves}</small>'
-        '<span class="layer-players">{mainland}{overseas}{unverified}</span></span>'
-        '<span class="layer-meta"><b>{count} 家</b><small>{forms}</small></span>'
-        "</a>".format(
-            color=layer_color(group["index"]),
-            width=round(68 + 30 * len(group["vendors"]) / max_group_vendors, 1),
-            identifier=esc(group["id"]),
-            index=group["index"],
-            name=esc(group["name"]),
-            solves=esc(truncate_text(group["solves"], 72)),
-            mainland=player_line(group, "mainland_china", 5),
-            overseas=player_line(group, "overseas", 3),
-            unverified=player_line(group, "unverified", 2),
-            count=len(group["vendors"]),
-            forms=esc(" / ".join(group["product_forms"][:2]) or "形态待补充"),
+
+    def market_layer(group: dict[str, Any]) -> str:
+        # f-string 拼接：厂商名等已转义文本含大括号时不再有 str.format 解析风险
+        count = len(group["vendors"])
+        width = round(72 + 26 * count / max_group_vendors, 1)
+        return (
+            f'<a class="market-layer" data-vendor-count="{count}" '
+            f'style="--layer-color:{layer_color(group["index"])};--layer-width:{width}%" href="#{esc(group["id"])}">'
+            f'<span class="layer-code">M{group["index"]}</span>'
+            f'<span class="layer-copy"><strong>{esc(group["name"])}</strong><small>{esc(truncate_text(group["solves"], 72))}</small>'
+            f'<span class="layer-players">{player_line(group, "mainland_china", 5)}{player_line(group, "overseas", 3)}{player_line(group, "unverified", 2)}</span></span>'
+            f'<span class="layer-meta"><b>{count} 家</b><small>{esc(" / ".join(group["product_forms"][:2]) or "形态待补充")}</small></span>'
+            "</a>"
         )
-        for group in groups
+
+    market_map_rows = "".join(
+        market_layer(group) for group in groups
     ) or '<p class="empty-state">当前资料不足以形成可核验的市场分层。</p>'
 
     route_rows = "".join(
@@ -1280,10 +1310,14 @@ def render_html(data: dict[str, Any]) -> str:
         "longlist_summary": esc(longlist_summary),
         "source_rows": source_rows,
     }
-    rendered = Template(template_path.read_text(encoding="utf-8")).safe_substitute(values)
-    unresolved = sorted(set(re.findall(r"\$[A-Za-z_][A-Za-z0-9_]*", rendered)))
-    if unresolved:
-        fail("html", "模板存在未替换变量：" + "、".join(unresolved))
+    template_text = template_path.read_text(encoding="utf-8")
+    # 源头白名单法：校验模板自有变量集被 values 完全覆盖，
+    # 不再对渲染产物做 \$[A-Za-z_] 全文扫描（消除数据含 $USD、$100/user/月 的误报中断）
+    template_variables = set(re.findall(r"\$([A-Za-z_][A-Za-z0-9_]*)", template_text))
+    missing_variables = sorted(template_variables - set(values))
+    if missing_variables:
+        fail("html", "模板存在未替换变量：" + "、".join(missing_variables))
+    rendered = Template(template_text).safe_substitute(values)
     for pattern in FORBIDDEN_DECISION_PATTERNS:
         match = pattern.search(rendered)
         if match:

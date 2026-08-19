@@ -1,0 +1,242 @@
+{
+  "schema_version": "3.0",
+  "title": "市场调研信息整合（节选｜非完整市场扫描）｜企业级应用性能监控（APM）平台",
+  "category": "企业级应用性能监控（APM）平台",
+  "research_date": "2026-08-19",
+  "scope": {
+    "buying_object": "用于回归对照的企业级应用性能监控（APM）平台演示对象",
+    "use_cases": [
+      "生产环境应用性能监控",
+      "故障定位与容量观测"
+    ],
+    "requirements": [
+      "指标/链路/日志一体化采集",
+      "支持私有化部署"
+    ],
+    "geography": "中国大陆",
+    "scan_scope": [
+      "节选 / 非完整市场扫描：仅覆盖 3 家厂商的公开产品页与文档，用于结构回归演示"
+    ],
+    "constraints": [],
+    "open_questions": [
+      "各家实际交付边界与企业报价口径待核验"
+    ],
+    "region_coverage_exception": ""
+  },
+  "market_structure": [
+    {
+      "kind": "供给类型",
+      "name": "一体化可观测平台",
+      "solves": "覆盖一体化可观测平台对应的监控与观测问题（虚构演示）",
+      "product_forms": [
+        "软件平台"
+      ],
+      "boundary": "专项能力与交付边界需单独核验",
+      "tradeoffs": "模块边界与报价口径可能不同",
+      "source_ids": [
+        "S1",
+        "S4"
+      ]
+    }
+  ],
+  "vendors": [
+    {
+      "category": "一体化可观测平台",
+      "vendor": "云瞰科技（虚构）",
+      "solution": "云瞰观测平台",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S1"
+      ],
+      "business_entry": "https://www.yunkan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S1"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S1"
+      ],
+      "source_ids": [
+        "S1"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "观澜数据（虚构）",
+      "solution": "观澜一体化监控",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "企业版报价与部署服务边界待核验",
+        "需求逐项覆盖证明待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "mainland_china",
+      "region_basis": "官方产品页与备案信息（虚构演示）显示能力主体注册于中国大陆，正式准入仍需核验签约与履约主体。",
+      "region_source_ids": [
+        "S2"
+      ],
+      "business_entry": "https://www.guanlan.example.com/contact",
+      "contacts": [
+        {
+          "type": "phone",
+          "value": "400-800-1234",
+          "label": "全国服务热线",
+          "scope": "中国大陆",
+          "source_ids": [
+            "S2"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S2"
+      ],
+      "source_ids": [
+        "S2"
+      ]
+    },
+    {
+      "category": "一体化可观测平台",
+      "vendor": "Observalytics（虚构）",
+      "solution": "Observalytics Suite",
+      "product_form": "软件平台",
+      "public_coverage": "公开资料（虚构演示）覆盖指标、链路与日志的基础监控能力描述。",
+      "capabilities": [
+        "指标采集与聚合",
+        "分布式链路追踪",
+        "日志检索分析",
+        "告警规则与通知",
+        "自定义仪表盘"
+      ],
+      "deployment_integration": "公开资料提及 SaaS 与私有化部署，提供 API 与 Agent 接入；细节口径待核验。",
+      "commercial_model": "企业许可需询价。",
+      "information_gaps": [
+        "中国区履约主体与数据边界待核验",
+        "本地化支持范围待核验"
+      ],
+      "evidence_status": "documented",
+      "enterprise_region": "overseas",
+      "region_basis": "官方主体说明（虚构演示）显示能力主体注册于海外，中国区签约与履约主体待核验。",
+      "region_source_ids": [
+        "S3"
+      ],
+      "business_entry": "https://www.observalytics.example.com/contact",
+      "contacts": [
+        {
+          "type": "email",
+          "value": "sales@observalytics.example.com",
+          "label": "销售咨询",
+          "scope": "全球",
+          "source_ids": [
+            "S3"
+          ]
+        }
+      ],
+      "contact_note": "",
+      "contact_source_ids": [
+        "S3"
+      ],
+      "source_ids": [
+        "S3"
+      ]
+    }
+  ],
+  "commercial_signals": [
+    {
+      "subject": "企业许可",
+      "billing_model": "按年订阅",
+      "price_type": "quote_required",
+      "price_signal": "需询价",
+      "cost_context": "部署实施与服务费用另行确认",
+      "limitations": "公开资料未披露企业报价，不能推断实际成交价",
+      "source_ids": [
+        "S1"
+      ]
+    }
+  ],
+  "risk_signals": [
+    {
+      "topic": "能力边界",
+      "observed_signal": "公开资料只覆盖部分功能描述（虚构演示）。",
+      "relevance": "可能影响需求覆盖口径。",
+      "information_needed": "逐项能力证明与样本结果。",
+      "source_ids": [
+        "S1"
+      ]
+    }
+  ],
+  "trends": [],
+  "sources": [
+    {
+      "id": "S1",
+      "subject": "云瞰科技（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.yunkan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S2",
+      "subject": "观澜数据（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.guanlan.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S3",
+      "subject": "Observalytics（虚构）",
+      "title": "产品页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.observalytics.example.com/product",
+      "source_locator": ""
+    },
+    {
+      "id": "S4",
+      "subject": "行业媒体（虚构）",
+      "title": "商务与联系页",
+      "date": "2026-08-19",
+      "claim_type": "vendor_claim",
+      "url": "https://www.demo-industry-news.example.com/market",
+      "source_locator": ""
+    }
+  ]
+}

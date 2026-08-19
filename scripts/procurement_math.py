@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Deterministic weighted-score and TCO calculations for procurement artifacts."""
+"""Deterministic weighted-score and TCO calculations for procurement artifacts.
+
+Usage:
+    python scripts/procurement_math.py score --input assets/supplier-evaluation.csv --pretty
+    python scripts/procurement_math.py tco --input assets/cost-scenarios.csv --pretty
+    python scripts/procurement_math.py tco-advanced --input assets/examples/tco-advanced-example.csv --pretty
+"""
 
 from __future__ import annotations
 
@@ -42,6 +48,13 @@ def parse_rate(value: str, field: str, row_number: int, *, weight: bool = False)
     if weight and number > 1:
         return number / 100.0
     return number
+
+
+def parse_optional_number(value: str, field: str, row_number: int, default: float) -> float:
+    text = str(value or "").strip()
+    if not text:
+        return default
+    return parse_number(text, field, row_number)
 
 
 def parse_bool(value: str) -> bool:
@@ -270,12 +283,141 @@ def calculate_tco(rows: list[dict[str, str]]) -> dict[str, object]:
     }
 
 
+def calculate_tco_advanced(rows: list[dict[str, str]]) -> dict[str, object]:
+    require_columns(
+        rows,
+        [
+            "vendor_id",
+            "scenario",
+            "item_id",
+            "item",
+            "quantity",
+            "unit_price",
+            "periods",
+            "escalation_rate",
+            "currency",
+            "evidence_status",
+            "discount_rate",
+            "exit_cost",
+            "commitment_amount",
+            "expected_utilization",
+            "migration_cost",
+        ],
+    )
+
+    groups: dict[tuple[str, str], dict[str, object]] = defaultdict(
+        lambda: {"currency": None, "npv_total": 0.0, "nominal_total": 0.0, "items": [], "unverified_items": []}
+    )
+    seen: set[tuple[str, str, str]] = set()
+
+    for row_number, row in enumerate(rows, start=2):
+        vendor = str(row.get("vendor_id") or "").strip()
+        scenario = str(row.get("scenario") or "").strip()
+        item_id = str(row.get("item_id") or "").strip()
+        item = str(row.get("item") or "").strip()
+        currency = str(row.get("currency") or "").strip().upper()
+        if not all([vendor, scenario, item_id, item, currency]):
+            raise ValueError(f"row {row_number}: vendor_id, scenario, item_id, item, and currency are required")
+        key = (vendor, scenario, item_id)
+        if key in seen:
+            raise ValueError(f"row {row_number}: duplicate vendor/scenario/item_id {key}")
+        seen.add(key)
+
+        quantity = parse_number(row.get("quantity", ""), "quantity", row_number)
+        unit_price = parse_number(row.get("unit_price", ""), "unit_price", row_number)
+        periods_value = parse_number(row.get("periods", ""), "periods", row_number)
+        periods = int(periods_value)
+        if periods_value != periods or periods < 1:
+            raise ValueError(f"row {row_number}: periods must be a positive integer")
+        escalation = parse_rate(row.get("escalation_rate", ""), "escalation_rate", row_number)
+        if escalation <= -1:
+            raise ValueError(f"row {row_number}: escalation_rate must be greater than -100%")
+
+        discount_rate = parse_rate(row.get("discount_rate", ""), "discount_rate", row_number)
+        if not 0 <= discount_rate < 1:
+            raise ValueError(f"row {row_number}: discount_rate must be in [0, 1)")
+        exit_cost = parse_optional_number(row.get("exit_cost", ""), "exit_cost", row_number, 0.0)
+        commitment_amount = parse_optional_number(row.get("commitment_amount", ""), "commitment_amount", row_number, 0.0)
+        migration_cost = parse_optional_number(row.get("migration_cost", ""), "migration_cost", row_number, 0.0)
+        if min(exit_cost, commitment_amount, migration_cost) < 0:
+            raise ValueError(f"row {row_number}: exit_cost, commitment_amount, and migration_cost cannot be negative")
+        utilization_text = str(row.get("expected_utilization") or "").strip()
+        expected_utilization = (
+            parse_rate(utilization_text, "expected_utilization", row_number, weight=True) if utilization_text else 1.0
+        )
+        if not 0 < expected_utilization <= 1:
+            raise ValueError(f"row {row_number}: expected_utilization must be in (0, 1]")
+
+        annual_base = quantity * unit_price
+        commitment_waste = commitment_amount * (1 - expected_utilization)
+        item_npv = 0.0
+        item_nominal = 0.0
+        for period in range(1, periods + 1):
+            period_cost = annual_base * ((1 + escalation) ** (period - 1)) + commitment_waste
+            if period == 1:
+                period_cost += migration_cost
+            if period == periods:
+                period_cost += exit_cost
+            item_nominal += period_cost
+            item_npv += period_cost / ((1 + discount_rate) ** period)
+
+        group = groups[(vendor, scenario)]
+        if group["currency"] is None:
+            group["currency"] = currency
+        elif group["currency"] != currency:
+            raise ValueError(
+                f"row {row_number}: mixed currencies in {vendor}/{scenario}; convert with a documented FX rate first"
+            )
+        group["npv_total"] += item_npv
+        group["nominal_total"] += item_nominal
+        group["items"].append(
+            {
+                "item_id": item_id,
+                "item": item,
+                "quantity": quantity,
+                "unit_price": unit_price,
+                "periods": periods,
+                "escalation_rate": escalation,
+                "discount_rate": discount_rate,
+                "exit_cost": exit_cost,
+                "commitment_amount": commitment_amount,
+                "expected_utilization": expected_utilization,
+                "migration_cost": migration_cost,
+                "npv": round(item_npv, 6),
+                "nominal_total": round(item_nominal, 6),
+                "evidence_status": row.get("evidence_status", ""),
+            }
+        )
+        if normalized(row.get("evidence_status")) not in VERIFIED_VALUES:
+            group["unverified_items"].append(item_id)
+
+    output = []
+    for (vendor, scenario), values in sorted(groups.items()):
+        output.append(
+            {
+                "vendor_id": vendor,
+                "scenario": scenario,
+                "currency": values["currency"],
+                "npv_total": round(float(values["npv_total"]), 6),
+                "nominal_total": round(float(values["nominal_total"]), 6),
+                "unverified_items": values["unverified_items"],
+                "items": values["items"],
+            }
+        )
+    return {
+        "calculation": "scenario TCO with NPV, commitment waste, migration and exit costs",
+        "groups": output,
+        "warning": "NPV is an arithmetic result and does not replace commercial judgment. Escalation does not apply to the first period (base cost uses (1+escalation)^(t-1)); with discount_rate=0 the NPV equals the undiscounted total. The script does not convert currency, infer tax, or validate commercial scope.",
+    }
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
     for command, help_text in (
         ("score", "calculate weighted vendor scores from supplier-evaluation.csv"),
         ("tco", "calculate scenario TCO from cost-scenarios.csv"),
+        ("tco-advanced", "calculate scenario NPV TCO with commitment waste, migration and exit costs"),
     ):
         child = subparsers.add_parser(command, help=help_text)
         child.add_argument("--input", required=True, help="input CSV path, or - for stdin")
@@ -287,7 +429,12 @@ def main() -> int:
     args = build_parser().parse_args()
     try:
         rows = read_rows(args.input)
-        result = calculate_scores(rows) if args.command == "score" else calculate_tco(rows)
+        if args.command == "score":
+            result = calculate_scores(rows)
+        elif args.command == "tco-advanced":
+            result = calculate_tco_advanced(rows)
+        else:
+            result = calculate_tco(rows)
     except (OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

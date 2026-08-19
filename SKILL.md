@@ -56,6 +56,15 @@ description: 直接处理甲方 IT 间接采购工作的个人助理，重点支
 - 项目梳理、领导决策、风险、支出和公司口径分别参考 `assets/` 中对应底稿；复制后填写，不修改原始底稿。
 - 脚本只保证算术一致，不替代证据、门槛、权重、授权和商业判断。
 
+## 采购知识参考（内部按需加载）
+
+- 涉及品类定价基准、市场格局或"价格合理吗"：读对应品类市场手册——[AI 模型/MaaS/API](references/knowledge/ai-model-services-market-playbook.md)、[AI Coding SaaS](references/knowledge/ai-coding-saas-market-playbook.md)、[云/GPU](references/knowledge/cloud-gpu-market-playbook.md)、[企业 SaaS](references/knowledge/enterprise-saas-market-playbook.md)、[IT 专业服务](references/knowledge/it-professional-services-market-playbook.md)。
+- 需要 3-5 年 TCO、折现、退出成本测算口径：读 [TCO 高级模型](references/knowledge/tco-advanced-model.md)，测算运行 `python scripts/procurement_math.py tco-advanced --input <csv> --pretty`。
+- 设计评分权重、评标方法：读 [评分与评标基准](references/knowledge/scoring-rfp-benchmarks.md)。
+- 建立或评审风险登记：读 [风险登记方法](references/knowledge/risk-register-method.md)。
+- 拿不准该读哪个时查 [知识索引](references/knowledge/INDEX.md)；只按需加载单个文件，不整目录加载，加载过程不写进答复。
+- 知识文件 front-matter 的 valid_until 早于当前日期时，结论中提示"市场基准数据已过期，建议联网核实"；价格类结论必须标注数据快照日期。
+
 ## 质量底线
 
 - 清楚区分事实、计算、假设和未验证信息；不编造价格、资质、案例、市场份额、故障、合同或供应商事实。

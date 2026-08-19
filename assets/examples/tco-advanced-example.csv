@@ -1,0 +1,7 @@
+vendor_id,scenario,item_id,item,quantity,unit_price,periods,escalation_rate,currency,evidence_status,discount_rate,exit_cost,commitment_amount,expected_utilization,migration_cost
+V001,baseline,I01,SaaS License,50,100,3,0.05,USD,verified,0.10,0,0,1.0,0
+V001,baseline,I02,Implementation,1,25000,1,0,USD,verified,0.10,0,0,1.0,0
+V001,baseline,I03,Cloud Compute,1,8000,3,0.08,USD,verified,0.10,0,12000,0.75,0
+V001,baseline,I04,Migration In,1,0,1,0,USD,verified,0.10,0,0,1.0,15000
+V001,baseline,I05,Exit Reserve,1,0,3,0,USD,estimate,0.10,20000,0,1.0,0
+V001,baseline,I06,Training,1,5000,1,0,USD,verified,0.10,0,0,1.0,0

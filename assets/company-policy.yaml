@@ -1,52 +1,115 @@
-policy_version: "待填写"
-effective_date: "待填写"
-owner: "待填写"
-base_currency: "待填写"
+policy_version: "v1.0" # 示例值，请按企业实际修改
+effective_date: "2026-01-01" # 示例值，请按企业实际修改
+owner: "采购部（CPO 办公室）" # 示例值，请按企业实际修改
+base_currency: "CNY" # 示例值，请按企业实际修改
 
 evidence:
-  source_priority: []
-  current_information_max_age: "待填写"
-  dual_source_required_for: []
+  # 示例值，请按企业实际修改：证据来源优先级从高到低
+  source_priority:
+    - "供应商官方文档与书面报价"
+    - "第三方权威报告（Gartner/IDC 等）"
+    - "POC 实测数据"
+    - "参考客户访谈记录"
+    - "公开媒体报道"
+  current_information_max_age: "一般信息 90 天；价格与折扣类 30 天" # 示例值，请按企业实际修改
+  # 示例值，请按企业实际修改：以下信息必须双源交叉验证
+  dual_source_required_for:
+    - "价格与折扣基准"
+    - "供应商财务健康度"
+    - "安全合规认证有效性"
 
 selection:
-  mandatory_gates: []
-  scoring_scale: "待填写"
-  weight_approval_role: "待填写"
-  conflict_of_interest_rule: "待填写"
+  # 示例值，请按企业实际修改：门槛项一票否决，不满足直接淘汰
+  mandatory_gates:
+    - "安全认证（ISO 27001 或 SOC 2 Type II）"
+    - "数据驻留满足监管要求"
+    - "SLA 可用性承诺 ≥ 99.9%"
+    - "供应商财务稳定性底线（近两年无重大亏损或失信记录）"
+  scoring_scale: "1-5 分制（5=卓越，4=良好，3=合格，2=不足，1=不可接受）" # 示例值，请按企业实际修改
+  weight_approval_role: "品类经理提议，采购总监审批" # 示例值，请按企业实际修改
+  conflict_of_interest_rule: "评审人须签署无利益冲突声明；与供应商存在关联关系者须回避" # 示例值，请按企业实际修改
 
 sourcing:
-  prohibited_or_restricted_rules: []
-  due_diligence_dimensions: []
-  related_party_check_rule: "待填写"
+  # 示例值，请按企业实际修改
+  prohibited_or_restricted_rules:
+    - "列入制裁名单或失信被执行人名单的供应商禁止合作"
+    - "注册未满 1 年的供应商仅限单笔 10 万元以下低风险采购"
+    - "涉及数据出境的供应商须先通过法务合规评估"
+  # 示例值，请按企业实际修改
+  due_diligence_dimensions:
+    - "工商登记与股权结构"
+    - "财务健康度"
+    - "安全与合规认证"
+    - "重大诉讼与失信记录"
+    - "关键客户与交付案例"
+  related_party_check_rule: "签约前核查供应商与员工及评审人的关联关系，发现关联须申报并升级一级审批" # 示例值，请按企业实际修改
 
 commercial:
-  tco_horizon_rule: "待填写"
-  fx_source: "待填写"
-  negotiation_authority: "待填写"
-  single_source_approval: "待填写"
+  tco_horizon_rule: "默认按 3 年 TCO 口径比价；合同期 ≥ 3 年须做 NPV 折现（折现率 8%-12%）" # 示例值，请按企业实际修改
+  fx_source: "中国人民银行公布的上月末人民币汇率中间价" # 示例值，请按企业实际修改
+  negotiation_authority: "单笔 ≤ 50 万元由品类经理谈判；50-200 万元由采购总监主谈；> 200 万元须 CFO 参与" # 示例值，请按企业实际修改
+  single_source_approval: "单一来源采购须提交书面论证，经采购总监与 CFO 双签审批" # 示例值，请按企业实际修改
 
 contract:
-  legal_review_required_for: []
-  non_negotiable_positions: []
-  risk_acceptance_authority: "待填写"
+  # 示例值，请按企业实际修改：满足任一条件即须法务评审
+  legal_review_required_for:
+    - "合同金额 ≥ 30 万元"
+    - "涉及个人信息或核心业务数据处理"
+    - "采用供应商模板合同或含非标条款"
+    - "多年期合同或含自动续约条款"
+  # 示例值，请按企业实际修改：不可让步立场
+  non_negotiable_positions:
+    - "数据所有权归属我方且可随时导出"
+    - "年度涨价上限不超过 CPI+2%"
+    - "供应商重大违约时的有责解约权与数据迁移协助义务"
+    - "供应商责任上限不低于 12 个月合同金额"
+  risk_acceptance_authority: "高风险（红）条款偏离由 CFO 或法务负责人书面接受；中风险（黄）由采购总监接受" # 示例值，请按企业实际修改
 
 delivery_and_acceptance:
-  rebaseline_thresholds: []
-  defect_tolerance_by_criticality: []
-  sampling_method_by_data_risk: []
-  retention_rule: "待填写"
+  # 示例值，请按企业实际修改：触发任一阈值须重新确立基线
+  rebaseline_thresholds:
+    - "进度偏差 > 15% 或延期 > 4 周"
+    - "预算偏差 > 10%"
+    - "范围变更影响关键里程碑"
+  # 示例值，请按企业实际修改
+  defect_tolerance_by_criticality:
+    - "致命缺陷：0 个"
+    - "严重缺陷：≤ 2 个且须附修复计划"
+    - "一般缺陷：≤ 10 个"
+  # 示例值，请按企业实际修改
+  sampling_method_by_data_risk:
+    - "高风险数据：100% 全量核验"
+    - "中风险数据：抽样比例 ≥ 20%"
+    - "低风险数据：抽样比例 ≥ 5%"
+  retention_rule: "验收合格后保留合同金额 10% 作为质保金，质保期 12 个月届满且无争议后支付" # 示例值，请按企业实际修改
 
 payment:
-  invoice_and_tax_rule_source: "待填写"
-  payment_approval_matrix: "待填写"
-  disputed_amount_rule: "待填写"
+  invoice_and_tax_rule_source: "以财务部发布的《发票与税务合规指引》现行版本为准" # 示例值，请按企业实际修改
+  payment_approval_matrix: "≤ 10 万元部门经理审批；10-50 万元采购总监；50-200 万元 CFO；> 200 万元总经理" # 示例值，请按企业实际修改
+  disputed_amount_rule: "争议金额暂缓支付并单独挂账，无争议部分按期支付；争议须在 30 天内书面解决" # 示例值，请按企业实际修改
 
 supplier_performance:
-  kpi_dimensions: []
-  grade_thresholds: []
-  cure_period_by_severity: []
+  # 示例值，请按企业实际修改
+  kpi_dimensions:
+    - "交付质量"
+    - "SLA 达成率"
+    - "响应及时性"
+    - "成本控制"
+    - "创新与改进"
+    - "合规表现"
+  # 示例值，请按企业实际修改（百分制）
+  grade_thresholds:
+    - "A 级：≥ 90 分"
+    - "B 级：75-89 分"
+    - "C 级：60-74 分（限期整改）"
+    - "D 级：< 60 分（暂停新增业务）"
+  # 示例值，请按企业实际修改
+  cure_period_by_severity:
+    - "严重问题：7 天内提交整改计划，30 天内完成整改"
+    - "一般问题：30 天整改期"
+    - "轻微问题：下一季度评审前完成改进"
 
 renewal_and_risk:
-  internal_decision_lead_time_rule: "待填写"
-  concentration_and_substitutability_rule: "待填写"
-  backup_and_exit_test_frequency: "待填写"
+  internal_decision_lead_time_rule: "续约或退出决策须在合同到期前 90 天启动（年支出 > 200 万元的合同为 120 天）" # 示例值，请按企业实际修改
+  concentration_and_substitutability_rule: "单一供应商占品类年支出 > 40% 时触发集中度评审，须评估可替代方案与切换成本" # 示例值，请按企业实际修改
+  backup_and_exit_test_frequency: "关键系统每年至少 1 次数据导出/退出演练；备份恢复演练每半年 1 次" # 示例值，请按企业实际修改
