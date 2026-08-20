@@ -848,8 +848,14 @@ def slug(value: str) -> str:
 
 def layer_color(index: int) -> str:
     """Generate stable, distinct category colors without implying rank."""
-    hue = (28 + (index - 1) * 137.508) % 360
-    return f"hsl({hue:.1f} 56% 46%)"
+    # 前 8 层用手调色相（蓝、橙、青、紫、绿、红、青绿、黄），超出后回退黄金角色相；
+    # 用 oklch 固定感知亮度 48%，保证每层色块与白字对比度一致，且分类色唯一、不表达排序。
+    palette = (258.0, 55.0, 195.0, 305.0, 145.0, 25.0, 168.0, 95.0)
+    if 1 <= index <= len(palette):
+        hue = palette[index - 1]
+    else:
+        hue = (12.5 + (index - 1) * 137.508) % 360
+    return f"oklch(48% 0.13 {hue:.1f})"
 
 
 def legacy_group_for(category: str, supply_names: list[str]) -> str:
@@ -978,14 +984,17 @@ def render_html(data: dict[str, Any]) -> str:
     def market_layer(group: dict[str, Any]) -> str:
         # f-string 拼接：厂商名等已转义文本含大括号时不再有 str.format 解析风险
         count = len(group["vendors"])
-        width = round(72 + 26 * count / max_group_vendors, 1)
+        # 条形长度只表达本次识别到的厂商数量，保留 28% 底宽保证小样本仍可见
+        width = round(28 + 72 * count / max_group_vendors, 1)
         return (
             f'<a class="market-layer" data-vendor-count="{count}" '
             f'style="--layer-color:{layer_color(group["index"])};--layer-width:{width}%" href="#{esc(group["id"])}">'
             f'<span class="layer-code">M{group["index"]}</span>'
             f'<span class="layer-copy"><strong>{esc(group["name"])}</strong><small>{esc(truncate_text(group["solves"], 72))}</small>'
             f'<span class="layer-players">{player_line(group, "mainland_china", 5)}{player_line(group, "overseas", 3)}{player_line(group, "unverified", 2)}</span></span>'
-            f'<span class="layer-meta"><b>{count} 家</b><small>{esc(" / ".join(group["product_forms"][:2]) or "形态待补充")}</small></span>'
+            f'<span class="layer-meta"><b>{count} 家</b>'
+            f'<span class="layer-bar" aria-hidden="true"><i></i></span>'
+            f'<small>{esc(" / ".join(group["product_forms"][:2]) or "形态待补充")}</small></span>'
             "</a>"
         )
 
@@ -1021,7 +1030,7 @@ def render_html(data: dict[str, Any]) -> str:
         else ""
     )
 
-    def vendor_card(item: dict[str, Any], group_index: int) -> str:
+    def vendor_card(item: dict[str, Any], group_index: int, color: str) -> str:
         visible_capabilities = item["capabilities"][:1]
         tags = [item["product_form"], *visible_capabilities]
         tag_markup = "".join(
@@ -1032,7 +1041,8 @@ def render_html(data: dict[str, Any]) -> str:
             tag_markup += f'<span class="tag">+{hidden_capability_count} 项</span>'
         all_sources = list(dict.fromkeys([*item["source_ids"], *item["region_source_ids"]]))
         return (
-            '<article class="vendor-card" id="vendor-{vendor_slug}" data-market-group="{group_index}" '
+            '<article class="vendor-card" style="--layer-color:{color}" id="vendor-{vendor_slug}" '
+            'data-market-group="{group_index}" '
             'data-enterprise-region="{region}" data-vendor-name="{vendor_attr}">'
             '<div class="vendor-top"><div><h3>{vendor}</h3><p class="product">{solution}</p></div>'
             '<div class="status-stack"><span class="region-status {region}">{region_label}</span>'
@@ -1055,6 +1065,7 @@ def render_html(data: dict[str, Any]) -> str:
             '<div class="vendor-foot"><span>{business}</span><span>{sources}</span></div>'
             "</article>"
         ).format(
+            color=color,
             vendor_slug=esc(slug(item["vendor"])),
             group_index=group_index,
             region=esc(item["enterprise_region"]),
@@ -1088,11 +1099,17 @@ def render_html(data: dict[str, Any]) -> str:
     def vendor_group(group: dict[str, Any]) -> str:
         vendor_count = len(group["vendors"])
         grid_size = "count-1" if vendor_count == 1 else "count-2" if vendor_count == 2 else "count-3plus"
+        color = layer_color(group["index"])
         header = (
             '<div class="section-header"><span class="tier-badge" style="--layer-color:{color}">M{index}</span>'
-            '<h2>{name}</h2><p>大陆 {mainland} · 海外 {overseas} · 待核验 {unverified}<br>{forms}</p></div>'
+            '<div><h2>{name}</h2><div class="group-meta">'
+            '<span class="count-pill mainland_china"><i></i>大陆 <b>{mainland}</b></span>'
+            '<span class="count-pill overseas"><i></i>海外 <b>{overseas}</b></span>'
+            '<span class="count-pill"><i></i>待核验 <b>{unverified}</b></span>'
+            '</div></div>'
+            '<p>{forms}</p></div>'
         ).format(
-            color=layer_color(group["index"]),
+            color=color,
             index=group["index"],
             name=esc(group["name"]),
             mainland=group["mainland_count"],
@@ -1100,7 +1117,7 @@ def render_html(data: dict[str, Any]) -> str:
             unverified=group["unverified_count"],
             forms=esc(" / ".join(group["product_forms"][:4]) or "产品形态待补充"),
         )
-        cards = "".join(vendor_card(item, group["index"]) for item in group["vendors"])
+        cards = "".join(vendor_card(item, group["index"], color) for item in group["vendors"])
         cards = cards or '<p class="empty-state">本次扫描未在该层识别到可核验厂商。</p>'
         if collapsible_groups:
             open_attr = "" if large_mode else " open"
@@ -1236,14 +1253,11 @@ def render_html(data: dict[str, Any]) -> str:
     mainland_count = sum(item["enterprise_region"] == "mainland_china" for item in vendors)
     overseas_count = sum(item["enterprise_region"] == "overseas" for item in vendors)
     unverified_region_count = sum(item["enterprise_region"] == "unverified" for item in vendors)
+    # 大陆 / 海外数量已由首屏数字卡承担，这里只补主体待核验，避免同屏重复同一组数字
     region_meta_chips = (
-        f'<span class="meta-chip">大陆企业 <strong>{mainland_count} 家</strong></span>'
-        f'<span class="meta-chip">海外补充 <strong>{overseas_count} 家</strong></span>'
-        + (
-            f'<span class="meta-chip">主体待核验 <strong>{unverified_region_count} 家</strong></span>'
-            if unverified_region_count
-            else ""
-        )
+        f'<span class="meta-chip">主体待核验 <strong>{unverified_region_count} 家</strong></span>'
+        if unverified_region_count
+        else ""
     )
     region_exception_note = (
         '<p class="region-exception"><b>地域覆盖例外</b>'
